@@ -6,7 +6,7 @@ const Intern = require('./lib/Intern')
 const Manager = require('./lib/Manager')
 const dist = path.resolve(__dirname, "dist")
 const distPath = path.join(dist, "index.html")
-
+const createTeam = require('./src/template')
 var teamArray = []
 
 function assembleTeam(){
@@ -36,32 +36,38 @@ function addManager(){
     ]).then(response => {
         const manager = new Manager(response.name, response.id, response.email, response.officeNumber)
         teamArray.push(manager)
-        createPage()
+        chooseEmployee()
     })
 }
 
-function chooseEmployee (){
-    inquirer.prompt([
-        {
-            type: "list",
-            name: "employeeChoice",
-            choices: ["engineer", "intern", "finish building team"]
+function chooseEmployee(){
+    inquirer.prompt([{
+        type: "list",
+        message: "What type of employee would you like to add to your team?",
+        name: "employeeChoice",
+        choices: ["Manager", "Engineer", "Intern", "No more team members are needed."]
+      }]).then(function (response) {
+        switch(response.employeeChoice) {
+          case "Manager":
+            addManager();
+            break;
+          case "Engineer":
+            addEngineer();
+            break;
+          case "Intern":
+            addIntern();
+            break;
+  
+          default:
+            createHTML();
         }
-    ]).then(response => {
-        if(response.employeeChoice === "finish building team"){
-            createPage()
-        } else if(response.employeeType === "engineer"){
-            addEngineer()
-        } else {
-            addIntern()
-        }
-    })
+      })
 }
 
 function addIntern(){
     inquirer.prompt([
         {
-            type: "input",
+            type: "text",
             name: "name",
             message: "What is the intern's name?"
           },
@@ -86,7 +92,7 @@ function addIntern(){
     ]).then(response => {
         const intern = new Intern(response.name, response.id, response.email, response.school)
         teamArray.push(intern)
-        createPage()
+        chooseEmployee()
     })
 }
 
@@ -119,40 +125,16 @@ function addEngineer() {
     ]).then(answers => {
       const engineer = new Engineer(answers.name, answers.id, answers.email, answers.github);
       teamArray.push(engineer);
-      createPage()
+      chooseEmployee()
     });
-}
-
-function createPage(){
-    inquirer.prompt([{
-        type: "list",
-        message: "What type of employee would you like to add to your team?",
-        name: "addEmployee",
-        choices: ["Manager", "Engineer", "Intern", "No more team members are needed."]
-      }]).then(function (response) {
-        switch(response.addEmployee) {
-          case "Manager":
-            addManager();
-            break;
-          case "Engineer":
-            addEngineer();
-            break;
-          case "Intern":
-            addIntern();
-            break;
-  
-          default:
-            createHTML();
-        }
-      })
 }
 
 function createHTML() {
     console.log("Team Assembled!")
-    fs.writeFileSync(distPath, createPage(teamArray), "UTF-8")
+    fs.writeFileSync(distPath, createTeam(teamArray), "UTF-8")
 }
 
-createPage()
+chooseEmployee()
 
 }
 
