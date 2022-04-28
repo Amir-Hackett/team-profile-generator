@@ -9,6 +9,8 @@ const distPath = path.join(dist, "index.html")
 
 var teamArray = []
 
+function assembleTeam(){
+
 function addManager(){
     inquirer.prompt([
         {
@@ -122,5 +124,36 @@ function addEngineer() {
 }
 
 function createPage(){
+    inquirer.prompt([{
+        type: "list",
+        message: "What type of employee would you like to add to your team?",
+        name: "addEmployee",
+        choices: ["Manager", "Engineer", "Intern", "No more team members are needed."]
+      }]).then(function (response) {
+        switch(response.addEmployee) {
+          case "Manager":
+            addManager();
+            break;
+          case "Engineer":
+            addEngineer();
+            break;
+          case "Intern":
+            addIntern();
+            break;
+  
+          default:
+            createHTML();
+        }
+      })
+}
+
+function createHTML() {
+    console.log("Team Assembled!")
+    fs.writeFileSync(distPath, createPage(teamArray), "UTF-8")
+}
+
+createPage()
 
 }
+
+assembleTeam()
