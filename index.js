@@ -11,36 +11,7 @@ var teamArray = []
 
 function assembleTeam(){
 
-function addManager(){
-    inquirer.prompt([
-        {
-            type: "text",
-            name: "name",
-            message: "What is the managers name?",
-        },
-        {
-            type: "text",
-            name: "id",
-            message: "What is the managers employee ID?",
-        },
-        {
-            type: "input",
-            name: "email",
-            message: "What is the managers email address?",
-        },
-        {
-            type: "input",
-            name: "officeNumber",
-            message: "What is the managers office number?",
-        },  
-    ]).then(response => {
-        const manager = new Manager(response.name, response.id, response.email, response.officeNumber)
-        teamArray.push(manager)
-        chooseEmployee()
-    })
-}
-
-function chooseEmployee(){
+  function chooseEmployee(){
     inquirer.prompt([{
         type: "list",
         message: "What type of employee would you like to add to your team?",
@@ -62,6 +33,35 @@ function chooseEmployee(){
             createHTML();
         }
       })
+  }
+
+function addManager(){
+    inquirer.prompt([
+        {
+            type: "text",
+            name: "name",
+            message: "What is the managers name?",
+        },
+        {
+            type: "text",
+            name: "id",
+            message: "What is the managers employee ID?",
+        },
+        {
+            type: "text",
+            name: "email",
+            message: "What is the managers email address?",
+        },
+        {
+            type: "text",
+            name: "officeNumber",
+            message: "What is the managers office number?",
+        },  
+    ]).then(response => {
+        const manager = new Manager(response.name, response.id, response.email, response.officeNumber)
+        teamArray.push(manager)
+        chooseEmployee()
+    })
 }
 
 function addIntern(){
@@ -73,19 +73,19 @@ function addIntern(){
           },
     
           {
-            type: "input",
+            type: "text",
             name: "id",
             message: "What is the intern's employee ID number?" 
           },
     
           {
-            type: "input",
+            type: "text",
             name: "email",
             message: "What is the intern's email address?"
           },
     
           {
-            type: "input",
+            type: "text",
             name: "school",
             message: "What school does the intern attend?"
           },  
@@ -99,25 +99,25 @@ function addIntern(){
 function addEngineer() {
     inquirer.prompt([
       {
-        type: "input",
+        type: "text",
         name: "name",
         message: "What is the engineer's name?"
       },
 
       {
-        type: "input",
+        type: "text",
         name: "id",
         message: "What is the engineer's employee ID number?" 
       },
 
       {
-        type: "input",
+        type: "text",
         name: "email",
         message: "What is the engineer's email address?"
       },
 
       {
-        type: "input",
+        type: "text",
         name: "github",
         message: "What is the engineer's GitHub username?"
       }
