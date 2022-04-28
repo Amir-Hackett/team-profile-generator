@@ -4,6 +4,8 @@
   [![license](https://img.shields.io/badge/license-MIT-blue)](https://shields.io)
 
   ## Table of Contents 
+  - [Presentation](#presentation)
+  - [Screen Shot](#screenshot)
   - [Description](#description)
   - [Installation](#installation)
   - [Usage](#usage)
@@ -11,6 +13,10 @@
   ## Presentation
 
 
+  ## Screenshot
+  This is a screenshot of the generated HTML webpage.
+
+ ![HTML Screenshot](./src/Screen-Shot.png)
 
   ## Description:
   The above video is a demonstration of how this application is supposed to work. 
