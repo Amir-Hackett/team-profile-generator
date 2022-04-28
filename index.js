@@ -4,6 +4,8 @@ const path = require('path')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 const Manager = require('./lib/Manager')
+const dist = path.resolve(__dirname, "dist")
+const distPath = path.join(dist, "index.html")
 
 var teamArray = []
 
@@ -80,7 +82,7 @@ function addIntern(){
             message: "What school does the intern attend?"
           },  
     ]).then(response => {
-        const Intern = new Intern(response.name, response.id, response.email, response.school)
+        const intern = new Intern(response.name, response.id, response.email, response.school)
         teamArray.push(intern)
         createPage()
     })
@@ -117,4 +119,8 @@ function addEngineer() {
       teamArray.push(engineer);
       createPage()
     });
+}
+
+function createPage(){
+
 }
